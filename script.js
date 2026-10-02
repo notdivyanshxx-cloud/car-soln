@@ -17,6 +17,15 @@ const colours = { white: { name: "Polar White", hex: "#e9edf0", price: 0 }, blac
 const wheels = { standard: { name: "Standard Alloy", price: 0 }, diamond: { name: "Diamond Cut Alloy", price: 25000 }, black: { name: "Black Alloy", price: 18000 }, premium: { name: "Premium Alloy", price: 35000 } };
 const interiors = { black: { name: "Black", price: 0 }, beige: { name: "Beige", price: 20000 } };
 const cameraPositions = { exterior: [4.5, 2.3, 6], front: [0, 1.5, 6], rear: [0, 1.6, -6], driver: [-6, 2, 1], passenger: [6, 2, 1], interior: [0, 1.4, 1.2] };
+const comparisonData = {
+  venue: { price: "₹7.89–15.51 lakh", powertrain: "1.2L petrol · 1.0L turbo · 1.5L diesel", economy: "18.05–24.2 kmpl", seats: "5", type: "Compact SUV" },
+  "grand-i10-nios": { price: "₹5.47–8.09 lakh", powertrain: "1.2L petrol / CNG", economy: "16 kmpl · 27.5 km/kg", seats: "5", type: "Hatchback" },
+  i20: { price: "₹6.00–10.68 lakh", powertrain: "1.2L petrol · 1.0L turbo", economy: "16–20 kmpl", seats: "5", type: "Premium hatchback" },
+  verna: { price: "₹10.99–18.46 lakh", powertrain: "1.5L petrol · 1.5L turbo", economy: "18.6–20.6 kmpl", seats: "5", type: "Sedan" },
+  creta: { price: "₹10.91–20.46 lakh", powertrain: "1.5L petrol · turbo · diesel", economy: "17.4–21.8 kmpl", seats: "5", type: "Midsize SUV" },
+  alcazar: { price: "₹14.51–21.96 lakh", powertrain: "1.5L diesel · 1.5L turbo", economy: "17.5–20.4 kmpl", seats: "6/7", type: "Family SUV" },
+  "ioniq-5": { price: "₹45.95–55.70 lakh", powertrain: "84 kWh electric motor", economy: "631 km ARAI range", seats: "5", type: "Electric crossover" }
+};
 
 let selectedKey = "venue";
 let state = { colour: "white", wheels: "standard", interior: "black" };
@@ -88,4 +97,16 @@ function animate() { requestAnimationFrame(animate); if (autoRotate && currentMo
 
 function renderVehicleNav() { const groups = [["SUV", ["venue", "creta", "alcazar"]], ["Hatchback", ["grand-i10-nios", "i20"]], ["Sedan", ["verna"]], ["Electric", ["ioniq-5"]]]; $("#vehicleNav").innerHTML = groups.flatMap(([group, keys]) => keys.map((key) => `<button class="${key === selectedKey ? "active" : ""}" data-vehicle="${key}">${vehicleConfigs[key].name.replace("Hyundai ", "")}<small>${group}</small></button>`)).join(""); document.querySelectorAll("[data-vehicle]").forEach((button) => button.onclick = () => loadVehicle(button.dataset.vehicle)); }
 function openModal() { $("#modalVehicle").textContent = vehicleConfigs[selectedKey].name; $("#testDriveModal").hidden = false; $("#confirmation").hidden = true; $("#testDriveForm").hidden = false; }
-document.addEventListener("DOMContentLoaded", () => { initThree(); renderVehicleNav(); loadVehicle(selectedKey); $("#autoRotate").onclick = () => toggleAutoRotate(); $("#resetView").onclick = resetCamera; $("#rotateLeft").onclick = () => { if (currentModel) currentModel.rotation.y -= .18; }; $("#rotateRight").onclick = () => { if (currentModel) currentModel.rotation.y += .18; }; document.querySelectorAll(".camera-button").forEach((button) => button.onclick = () => moveCamera(button.dataset.camera)); $("#resetConfig").onclick = () => { state = { colour: vehicleConfigs[selectedKey].defaultColour, wheels: "standard", interior: "black" }; toggleAutoRotate(false); applyColour(); changeWheels("standard"); changeInterior("black"); resetCamera(); }; $("#usePlaceholder").onclick = showPlaceholder; $("#headerTestDrive").onclick = openModal; $("#testDrive").onclick = openModal; $("#closeModal").onclick = () => { $("#testDriveModal").hidden = true; }; $("#testDriveModal").onclick = (event) => { if (event.target.id === "testDriveModal") $("#testDriveModal").hidden = true; }; $("#testDriveForm").onsubmit = (event) => { event.preventDefault(); $("#testDriveForm").hidden = true; $("#confirmation").hidden = false; }; $("#fullscreenViewer").onclick = () => { const viewer = $("#viewer"); if (document.fullscreenElement) document.exitFullscreen(); else viewer.requestFullscreen?.(); }; });
+function renderComparison() {
+  const first = $("#compareOne").value;
+  const second = $("#compareTwo").value;
+  const rows = [["Starting price", "price"], ["Powertrain", "powertrain"], ["Mileage / range", "economy"], ["Seats", "seats"], ["Body style", "type"]];
+  $("#comparisonTable").innerHTML = `<div class="compare-row compare-head"><span>Specification</span><strong>${vehicleConfigs[first].name.replace("Hyundai ", "")}</strong><strong>${vehicleConfigs[second].name.replace("Hyundai ", "")}</strong></div>${rows.map(([label, key]) => `<div class="compare-row"><span>${label}</span><b>${comparisonData[first][key]}</b><b>${comparisonData[second][key]}</b></div>`).join("")}`;
+}
+function initComparison() {
+  const options = Object.entries(vehicleConfigs).map(([key, config]) => `<option value="${key}">${config.name}</option>`).join("");
+  $("#compareOne").innerHTML = options; $("#compareTwo").innerHTML = options;
+  $("#compareOne").value = "venue"; $("#compareTwo").value = "creta";
+  $("#compareOne").addEventListener("change", renderComparison); $("#compareTwo").addEventListener("change", renderComparison); renderComparison();
+}
+document.addEventListener("DOMContentLoaded", () => { initThree(); renderVehicleNav(); loadVehicle(selectedKey); initComparison(); $("#autoRotate").onclick = () => toggleAutoRotate(); $("#resetView").onclick = resetCamera; $("#rotateLeft").onclick = () => { if (currentModel) currentModel.rotation.y -= .18; }; $("#rotateRight").onclick = () => { if (currentModel) currentModel.rotation.y += .18; }; document.querySelectorAll(".camera-button").forEach((button) => button.onclick = () => moveCamera(button.dataset.camera)); $("#resetConfig").onclick = () => { state = { colour: vehicleConfigs[selectedKey].defaultColour, wheels: "standard", interior: "black" }; toggleAutoRotate(false); applyColour(); changeWheels("standard"); changeInterior("black"); resetCamera(); }; $("#usePlaceholder").onclick = showPlaceholder; $("#headerTestDrive").onclick = openModal; $("#testDrive").onclick = openModal; $("#closeModal").onclick = () => { $("#testDriveModal").hidden = true; }; $("#testDriveModal").onclick = (event) => { if (event.target.id === "testDriveModal") $("#testDriveModal").hidden = true; }; $("#testDriveForm").onsubmit = (event) => { event.preventDefault(); $("#testDriveForm").hidden = true; $("#confirmation").hidden = false; }; $("#fullscreenViewer").onclick = () => { const viewer = $("#viewer"); if (document.fullscreenElement) document.exitFullscreen(); else viewer.requestFullscreen?.(); }; });

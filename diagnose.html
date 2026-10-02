@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotorIQ by Hyundai Studio — Fix my car</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="diagnose.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="index.html"><span class="logo-mark">H</span><span>HYUNDAI <small>STUDIO</small></span><b class="brand-divider">×</b><strong class="motiq-brand">motor<span>iq</span></strong></a>
+    <nav><a href="index.html#vehicles">Explore cars</a><a href="index.html#compare">Compare</a><a class="active" href="diagnose.html">Fix my car</a></nav>
+    <a class="header-link" href="index.html">Back to showroom <span>↗</span></a>
+  </header>
+  <main>
+    <section class="diagnose-hero">
+      <div><p class="kicker">CAR CARE, EXPLAINED CLEARLY</p><h1>Tell us what your<br><em>car is doing.</em></h1><p>Get a practical first step, understand the likely causes, and know when it is time to call a professional.</p></div>
+      <div class="hero-orb"><span>✦</span><small>Safety-first<br>guidance</small></div>
+    </section>
+    <section class="solver-layout">
+      <div class="solver-card">
+        <div class="step-heading"><span>01</span><div><h2>Choose your car</h2><p>Advice is more useful when it knows your vehicle.</p></div></div>
+        <div class="vehicle-fields"><label>Make<select id="makeSelect"><option>Hyundai</option><option>Maruti Suzuki</option><option>Tata</option><option>Honda</option><option>Toyota</option><option>Other</option></select></label><label>Model<select id="modelSelect"><option>Grand i10 Nios</option><option>Venue</option><option>i20</option><option>Verna</option><option>Creta</option><option>Other model</option></select></label><label>Year<select><option>2025</option><option>2024</option><option>2023</option><option>2022</option><option>Older</option></select></label></div>
+        <div class="step-heading issue-step"><span>02</span><div><h2>Describe the problem</h2><p>Choose a common symptom or describe it in your own words.</p></div></div>
+        <div class="symptom-grid">
+          <button class="symptom-card" data-issue="engine"><span>◉</span><strong>Engine & warning lights</strong><small>Check engine, overheating, stalling</small></button>
+          <button class="symptom-card" data-issue="brakes"><span>⌁</span><strong>Brakes & steering</strong><small>Noise, vibration, pulling</small></button>
+          <button class="symptom-card" data-issue="start"><span>↯</span><strong>Won’t start</strong><small>Clicking, no power, slow crank</small></button>
+          <button class="symptom-card" data-issue="ac"><span>❄</span><strong>AC & cooling</strong><small>Not cold, strange smell, fan</small></button>
+          <button class="symptom-card" data-issue="tyres"><span>◌</span><strong>Tyres & suspension</strong><small>Uneven wear, bouncing, noise</small></button>
+          <button class="symptom-card" data-issue="other"><span>＋</span><strong>Something else</strong><small>Describe any other symptom</small></button>
+        </div>
+        <label class="issue-label">Or describe what you notice<textarea id="issueInput" rows="4" placeholder="Example: There is a grinding sound from the front wheel when I brake..."></textarea></label>
+        <button class="solve-button" id="solveButton">Find possible causes <span>↗</span></button>
+        <p class="privacy-note">Your description stays in this browser for now. This guide is educational and does not replace a professional inspection.</p>
+      </div>
+      <aside class="knowledge-rail">
+        <div class="rail-card"><p class="kicker">HOW IT WORKS</p><div class="rail-item"><span>1</span><div><strong>Describe</strong><p>Tell us the sound, light, or behaviour.</p></div></div><div class="rail-item"><span>2</span><div><strong>Understand</strong><p>See likely causes ranked by urgency.</p></div></div><div class="rail-item"><span>3</span><div><strong>Act safely</strong><p>Try safe checks or find a technician.</p></div></div></div>
+        <div class="rail-card trusted-card"><span class="check">✓</span><div><strong>Built with safety in mind</strong><p>We clearly flag problems that should not be handled at home.</p></div></div>
+      </aside>
+    </section>
+    <section class="result-section" id="resultSection" hidden>
+      <div class="result-heading"><div><p class="kicker">YOUR FIRST CHECK</p><h2 id="resultTitle">Here’s where to start.</h2><p id="resultSummary"></p></div><span class="urgency-pill" id="urgencyPill">LOW URGENCY</span></div>
+      <div class="result-grid"><div class="causes-card"><h3>Possible causes</h3><div id="causeList"></div></div><div class="action-card"><h3>What you can do now</h3><div id="actionList"></div></div></div>
+      <div class="video-guide" id="videoGuide">
+        <div class="video-preview" id="videoPreview"><div class="video-scene"><span class="scene-car">🚙</span><span class="scene-tool">＋</span><span class="scene-hand">✦</span></div><button class="play-guide" id="playGuide" aria-label="Play how-to guide">▶</button><span class="video-duration">0:42</span></div>
+        <div class="video-copy"><p class="kicker">QUICK HOW-TO · CUSTOMER SAFE</p><h3 id="videoTitle">Check your tyre pressure safely</h3><p id="videoDescription">A short visual guide for checks you can do at home with the right tools.</p><div class="video-progress"><i id="videoProgress"></i></div><div class="video-step" id="videoStep">Press play to see the steps</div><span class="video-disclaimer">Stop if anything looks damaged or unsafe. This guide does not replace a technician inspection.</span></div>
+      </div>
+      <div class="safety-banner" id="safetyBanner"><span>!</span><div><strong>Stop driving if this feels unsafe.</strong><p>If you see smoke, smell fuel, lose braking power, or the temperature warning is red, switch off the car and request professional help.</p></div><a href="#technician" id="technicianLink">Find a technician <span>→</span></a></div>
+    </section>
+    <section class="technician-section" id="technician"><div><p class="kicker">WHEN HOME REPAIR IS NOT ENOUGH</p><h2>Nearest Hyundai service centre.</h2><p>After your inspection, share your location to open nearby authorised Hyundai service centres with directions and contact options.</p></div><button class="location-button" id="locationButton" type="button">⌖ Find nearest centre</button><div class="location-result" id="locationResult" hidden></div><div class="service-card" id="serviceCard" hidden><div><p class="kicker">LOCATION-BASED RESULT</p><h3 id="serviceName">Nearest authorised Hyundai service centre</h3><p id="serviceAddress">Open the map result to choose the closest verified Hyundai workshop.</p><p class="service-meta" id="serviceMeta">Confirm opening hours and availability with the centre.</p></div><div class="service-actions"><a class="service-directions" id="directionsLink" href="https://www.google.com/maps/search/?api=1&amp;query=Hyundai%20authorised%20service%20centre%20India" target="_blank" rel="noopener">↗ Get directions</a><a class="service-call" href="tel:1800114645">☎ Hyundai care</a><a class="service-roadside" href="tel:18001024645">☎ Roadside assistance</a><a class="service-link" href="https://www.hyundai.com/in/en/utility/contact-us" target="_blank" rel="noopener">Hyundai contact page ↗</a><a class="service-link" href="https://www.hyundai.com/in/en/find-a-dealer" target="_blank" rel="noopener">Official service locator ↗</a></div></div><div class="official-contact"><strong>Hyundai India support</strong><span>Customer care: <a href="tel:1800114645">1800 114 645</a></span><span>WhatsApp: <a href="https://wa.me/918447228019" target="_blank" rel="noopener">84472 28019</a></span><span>Roadside assistance: <a href="tel:18001024645">1800 102 4645</a></span></div></section>
+  </main>
+  <footer><span>© 2026 MotorIQ by Hyundai Studio</span><span>Knowledge base preview · Always confirm with a qualified technician</span><a href="index.html">Back to showroom ↗</a></footer>
+  <script src="diagnose.js"></script>
+</body>
+</html>
