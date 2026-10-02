@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hyundai Studio — 3D Vehicle Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="logo" href="#"><span class="logo-mark">H</span><span>HYUNDAI <small>STUDIO</small></span></a>
+    <nav><a href="#vehicles">Vehicles</a><a href="#configurator">Configurator</a><a href="#contact">Contact</a></nav>
+    <button class="header-cta" id="headerTestDrive">Book a test drive <span>↗</span></button>
+  </header>
+
+  <main>
+    <section class="hero" id="vehicles">
+      <div class="hero-copy">
+        <p class="kicker">INDIA · VEHICLE CONFIGURATOR</p>
+        <h1>Meet your next<br><em>Hyundai.</em></h1>
+        <p class="hero-text">Explore the range, make it yours, and see every detail in an immersive 3D showroom.</p>
+        <a class="hero-link" href="#configurator">Start configuring <span>↓</span></a>
+      </div>
+      <div class="hero-stat"><strong>07</strong><span>vehicles to<br>explore</span></div>
+    </section>
+
+    <section class="vehicle-strip" aria-label="Vehicle navigation">
+      <div class="strip-label">Choose a vehicle</div>
+      <div class="vehicle-nav" id="vehicleNav"></div>
+    </section>
+
+    <section class="configurator" id="configurator">
+      <aside class="control-panel">
+        <div class="panel-intro"><p class="kicker">MAKE IT YOURS</p><h2 id="vehicleName">Hyundai Venue</h2><p id="vehicleCategory">Compact SUV · 2025</p></div>
+        <div class="option-group"><div class="option-heading"><span>Exterior colour</span><b id="selectedColour">Polar White</b></div><div class="swatches" id="colourOptions"></div></div>
+        <div class="option-group"><div class="option-heading"><span>Wheels</span><b id="selectedWheels">Standard Alloy</b></div><div class="choice-list" id="wheelOptions"></div></div>
+        <div class="option-group"><div class="option-heading"><span>Interior</span><b id="selectedInterior">Black</b></div><div class="choice-list" id="interiorOptions"></div></div>
+        <button class="reset-button" id="resetConfig">↻ Reset configuration</button>
+      </aside>
+
+      <div class="viewer-wrap">
+        <div class="viewer-top"><span id="loadingMessage">Interactive 3D showroom</span><div><button class="viewer-button" id="autoRotate">Auto rotate <i></i></button><button class="viewer-button icon-only" id="fullscreenViewer" aria-label="Fullscreen viewer">⛶</button></div></div>
+        <div class="viewer" id="viewer"><div class="viewer-loading" id="viewerLoading"><span class="spinner"></span><strong>Loading 3D model...</strong><small id="loadingProgress">Preparing showroom</small></div><div id="canvasMount"></div><div class="model-error" id="modelError" hidden>Unable to load this vehicle model. Please check the GLB file path.<button id="usePlaceholder">Use showroom preview</button></div></div>
+        <div class="camera-row"><span>Camera</span><button class="camera-button active" data-camera="exterior">Exterior</button><button class="camera-button" data-camera="front">Front</button><button class="camera-button" data-camera="rear">Rear</button><button class="camera-button" data-camera="driver">Driver side</button><button class="camera-button" data-camera="passenger">Passenger side</button><button class="camera-button" data-camera="interior">Interior</button><button class="rotate-button" id="rotateLeft">←</button><button class="rotate-button" id="rotateRight">→</button><button class="reset-view" id="resetView">Reset view</button></div>
+      </div>
+
+      <aside class="summary-panel">
+        <p class="kicker">YOUR CONFIGURATION</p><h3 id="summaryVehicle">Hyundai Venue</h3>
+        <div class="summary-line"><span>Colour</span><b id="summaryColour">Polar White</b></div><div class="summary-line"><span>Wheels</span><b id="summaryWheels">Standard Alloy</b></div><div class="summary-line"><span>Interior</span><b id="summaryInterior">Black</b></div>
+        <div class="price-total"><span>Estimated ex-showroom</span><strong id="finalPrice">₹7,89,900</strong><small>Prices vary by city, variant and dealer.</small></div>
+        <button class="test-drive-button" id="testDrive">Book a test drive <span>↗</span></button>
+        <a class="info-link" href="#info">View vehicle details <span>→</span></a>
+      </aside>
+    </section>
+
+    <section class="info-section" id="info"><div><p class="kicker">SELECTED VEHICLE</p><h2 id="infoTitle">Venue, made for the everyday.</h2><p id="infoDescription">A feature-rich compact SUV with city-friendly dimensions, confident road presence and connected technology.</p></div><div class="info-specs" id="infoSpecs"></div></section>
+    <section class="showroom-note"><span>✦</span><div><strong>A better way to shop for your Hyundai.</strong><p>Rotate, compare, and configure every detail before your visit to the showroom.</p></div><a href="#configurator">Configure another <span>↗</span></a></section>
+  </main>
+  <footer id="contact"><span>© 2026 Hyundai Studio concept</span><span>Built for better car decisions</span><span>Data shown is indicative · <a href="#">Privacy</a></span></footer>
+
+  <div class="modal-backdrop" id="testDriveModal" hidden><div class="modal"><button class="modal-close" id="closeModal">×</button><p class="kicker">BOOK A TEST DRIVE</p><h2>Take it for a spin.</h2><p>Request a test drive for the <strong id="modalVehicle">Hyundai Venue</strong>.</p><form id="testDriveForm"><label>Name<input required name="name" placeholder="Your name"></label><label>Phone<input required name="phone" type="tel" placeholder="+91 98765 43210"></label><label>Email<input required name="email" type="email" placeholder="you@example.com"></label><label>Preferred date<input required name="date" type="date"></label><button class="test-drive-button" type="submit">Submit request <span>↗</span></button></form><div class="confirmation" id="confirmation" hidden>✓ Thanks — your request has been recorded. A Hyundai representative will contact you shortly.</div></div></div>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+  <script type="module" src="script.js"></script>
+</body>
+</html>
