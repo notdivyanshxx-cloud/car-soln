@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pre-Trip Car Care – 60-second animated guide</title>
+<style>
+:root{--bg:#f4f6f8;--fg:#14202b;--card:#fff;--ac:#e8590c;--mut:#5b6b78;--sky:#dbeafe;--gr:#94a3b8;--ln:#d5dde4;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#10171d;--fg:#eaf0f5;--card:#1a242d;--mut:#9fb0be;--sky:#1e3a5f;--gr:#3b4a57;--ln:#2d3b47}}
+:root[data-theme="dark"]{--bg:#10171d;--fg:#eaf0f5;--card:#1a242d;--mut:#9fb0be;--sky:#1e3a5f;--gr:#3b4a57;--ln:#2d3b47}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:980px;margin:0 auto;padding:16px}
+h1{font-size:1.5rem;margin:4px 0}p.sub{color:var(--mut);margin:0 0 14px}
+.player{background:var(--card);border:1px solid var(--ln);border-radius:14px;overflow:hidden}
+.stage{position:relative;aspect-ratio:16/9;background:var(--sky)}
+.stage svg{width:100%;height:100%;display:block}
+.badge{position:absolute;left:10px;top:10px;background:#0f172a;color:#fff;padding:4px 10px;border-radius:99px;font-size:.8rem;font-weight:600}
+.cap{position:absolute;left:10px;right:10px;bottom:10px;background:rgba(15,23,42,.88);color:#fff;padding:8px 12px;border-radius:10px;font-size:clamp(.85rem,2.4vw,1.05rem);text-align:center}
+.cap.off{display:none}
+.err{position:absolute;inset:0;display:none;place-items:center;background:rgba(15,23,42,.85);color:#fff;text-align:center;padding:20px}
+.ctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:10px 12px}
+button,select{font:inherit;min-height:40px;min-width:40px;border:1px solid var(--ln);background:var(--bg);color:var(--fg);border-radius:8px;padding:0 10px;cursor:pointer}
+button.pri{background:var(--ac);border-color:var(--ac);color:#fff;font-weight:600}
+input[type=range]{flex:1 1 180px;min-width:120px;accent-color:var(--ac);height:28px}
+.tm{font-variant-numeric:tabular-nums;color:var(--mut);font-size:.9rem}
+h2{font-size:1.1rem;margin:20px 0 8px}
+.tr{display:grid;gap:8px;grid-template-columns:repeat(auto-fit,minmax(270px,1fr))}
+.ch{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:10px 12px}
+.ch.on{border-color:var(--ac);box-shadow:0 0 0 2px var(--ac) inset}
+.ch h3{margin:0 0 4px;font-size:.95rem}.ch h3 span{color:var(--mut);font-weight:400}
+.ch ol{margin:0;padding-left:1.2em;font-size:.88rem}.ch li{cursor:pointer;padding:1px 0}.ch li:hover{color:var(--ac)}
+.video-library{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));margin:16px 0 20px}
+.video-card{background:var(--card);border:1px solid var(--ln);border-radius:12px;padding:10px 12px}
+.video-card h2{margin:0 0 4px;font-size:1rem}.video-card p{color:var(--mut);font-size:.88rem;margin:0 0 9px}
+.video-card video{display:block;width:100%;border-radius:8px;background:#000}
+.back-link{display:inline-block;color:var(--ac);font-weight:600;margin:0 0 12px;text-decoration:none}
+.note{margin-top:16px;padding:12px;border-left:4px solid var(--ac);background:var(--card);border-radius:8px;font-size:.9rem;color:var(--mut)}
+</style></head><body><main>
+<a class="back-link" href="diagnose.html">← Back to MotorIQ</a>
+<h1>Pre-Trip Car Care</h1>
+<p class="sub">A 60-second animated walkthrough of the 15 basic checks to do at home before a road trip.</p>
+<section class="video-library" aria-label="Pre-trip videos">
+ <article class="video-card">
+  <h2>Video 1 · Pre-trip car care</h2>
+  <p>Watch the essential checks before leaving home.</p>
+  <video controls preload="metadata">
+   <source src="media/pre-trip-car-care.mp4" type="video/mp4">
+   Your browser does not support local video playback.
+  </video>
+ </article>
+ <article class="video-card">
+  <h2>Video 2 · Get road-ready</h2>
+  <p>Review the second supplied walkthrough before a long journey.</p>
+  <video controls preload="metadata">
+   <source src="media/pre-trip-road-ready.mp4" type="video/mp4">
+   Your browser does not support local video playback.
+  </video>
+ </article>
+</section>
+<div class="player">
+ <div class="stage"><svg id="sv" viewBox="0 0 800 450" role="img" aria-label="Animated humanoid demonstrating pre-trip car checks"></svg>
+  <div class="badge" id="bd"></div><div class="cap" id="cp"></div>
+  <div class="err" id="er"><div><p><b>Animation failed to render.</b></p><button class="pri" id="rt">Retry</button></div></div></div>
+ <div class="ctl">
+  <button class="pri" id="pl" aria-label="Play or pause">⏸</button>
+  <button id="rs" aria-label="Restart">⟲</button>
+  <button id="pv" aria-label="Previous step">⏮</button>
+  <button id="nx" aria-label="Next step">⏭</button>
+  <input type="range" id="sk" min="0" max="60" step="0.05" value="0" aria-label="Progress">
+  <span class="tm" id="tm">0:00 / 1:00</span>
+  <select id="sp" aria-label="Speed"><option value="0.5">0.5×</option><option value="1" selected>1×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>
+  <button id="cc" aria-pressed="true" aria-label="Captions">CC</button>
+  <button id="fs" aria-label="Full screen">⛶</button>
+ </div>
+</div>
+<h2>Written instructions (tap a step to jump to it)</h2>
+<div class="tr" id="tr"></div>
+<div class="note"><b>Safety:</b> Educational only, not a professional inspection. Always check on level ground with the handbrake on. Never work under a car held only by a jack, and never open a hot cooling system. Pressures, fluids and procedures vary by make, model and powertrain, so follow your owner’s manual. Completing these checks does not guarantee your vehicle is roadworthy. See a qualified mechanic for brake, steering, suspension, fuel-system, serious tyre or major engine problems. This video has no audio track; the captions carry the instructions.</div>
+</main>
+<script>
+const $=i=>document.getElementById(i),cl=(v,a=0,b=1)=>Math.min(b,Math.max(a,v)),sg=(p,a,b)=>cl((p-a)/(b-a)),ez=x=>x<.5?2*x*x:1-2*(1-x)*(1-x),G=365;
+const R=(x,y,w,h,f,r=0,e="")=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${f}" ${e}/>`;
+const C=(x,y,r,f,e="")=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${f}" ${e}/>`;
+const L=(a,b,c,d,s,w=3,e="")=>`<line x1="${a}" y1="${b}" x2="${c}" y2="${d}" stroke="${s}" stroke-width="${w}" stroke-linecap="round" ${e}/>`;
+const X=(x,y,s,f="#14202b",z=13,a="middle",w=600)=>`<text x="${x}" y="${y}" text-anchor="${a}" font-size="${z}" font-weight="${w}" fill="${f}">${s}</text>`;
+const PN=(t,b)=>`<g transform="translate(572,52)">${R(0,0,210,270,"#fff",14,'stroke="#cbd5e1"')}${X(105,26,t,"#14202b",14,"middle",700)}${b}</g>`;
+let T=0;
+function hum(x,c,hx,hy,f=1,w=0){
+ if(f<0)hx=2*x-hx;
+ const sx=x-c*22,sy=G-140+c*72,hp=G-78+c*34,l=62,dx=hx-sx,dy=hy-sy,d=Math.min(Math.hypot(dx,dy),2*l-2),a=Math.atan2(dy,dx),k=Math.acos(d/(2*l)),ea=dx<0?a-k:a+k;
+ const ex=sx+l*Math.cos(ea),ey=sy+l*Math.sin(ea),hX=sx+d*Math.cos(a),hY=sy+d*Math.sin(a),st=Math.sin(w)*20,kx=x-c*30,ky=(hp+G)/2;
+ const leg=fx=>`<polyline points="${x},${hp} ${kx},${ky} ${fx},${G}" fill="none" stroke="#1e293b" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>`;
+ return `<g transform="translate(${x} 0) scale(${f} 1) translate(${-x} 0)">${leg(x+6+st)}${leg(x-6-st)}`+
+ L(x,hp,sx,sy,"#2563eb",22)+L(sx,sy,sx+6,sy+55,"#2563eb",9)+
+ `<polyline points="${sx},${sy} ${ex},${ey} ${hX},${hY}" fill="none" stroke="#2563eb" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>`+
+ C(hX,hY,6,"#f1c27d")+C(sx-4,sy-28,16,"#f1c27d")+`<path d="M${sx-20} ${sy-30} Q${sx-4} ${sy-52} ${sx+12} ${sy-30} Z" fill="#3b2a20"/>`+C(sx-14,sy-27,2,"#14202b")+"</g>";
+}
+function car(o={}){
+ const b=o.bn||0,th=Math.PI/3*b,bl=Math.sin(T*9)>0;
+ let s=`<path d="M100 330 L100 302 Q104 288 150 283 L215 277 L255 236 Q268 226 300 226 L350 226 Q374 229 394 276 L420 286 Q430 300 430 330 Z" fill="#c0392b"/>
+ <path d="M222 275 L257 241 Q266 233 292 233 L318 233 L318 275Z" fill="#bcd7ea"/><path d="M326 233 L350 233 Q366 236 380 275 L326 275Z" fill="#bcd7ea"/>`+L(318,233,318,330,"#a93226",3)+L(240,300,255,300,"#7f1d1d",3);
+ if(b>0)s+=L(215,277,215-115*Math.cos(th),277-115*Math.sin(th),"#a93226",9);
+ if(o.ws!=null){const a=Math.PI+o.ws*1.2;s+=L(232,272,232+34*Math.cos(a)*-1,272+34*Math.sin(a),"#111",3)}
+ if(o.lt)s+=`<polygon points="100,298 20,268 20,345 100,314" fill="#fff7b0" opacity=".5"/>`;
+ s+=C(103,306,7,o.lt?"#fff7b0":"#e5e7eb");
+ const ind=o.ind||o.haz;
+ s+=C(105,321,5,ind?"#f59e0b":"#a16207")+C(426,314,5,ind?"#f59e0b":"#a16207")+C(427,298,6,o.br?"#ff2a2a":"#7f1d1d");
+ if(o.br)s+=C(427,298,16,"#ff2a2a",'opacity=".35"');
+ if(ind&&bl)s+=C(105,321,13,"#f59e0b",'opacity=".5"')+C(426,314,13,"#f59e0b",'opacity=".5"');
+ for(const x of[165,370])s+=C(x,335,30,"#1f2937")+C(x,335,16,"#cbd5e1")+C(x,335,4,"#64748b");
+ return s;
+}
+const hand=(x)=>x;
+const SC=[
+{a:0,b:5,t:"Park safely",st:["Park on flat, level ground","Apply the handbrake","Switch the engine off and take out the key"],f:p=>{const q=.15+sg(p,.3,.6)*.9;return{h:[500,0,450+Math.sin(p*18)*12,215],lb:[200,150,"Level ground"],i:PN("Park safely",R(50,205,40,40,"#64748b",4)+L(70,215,70+80*Math.cos(q),215-80*Math.sin(q),"#dc2626",8)+X(120,160,"HANDBRAKE","#dc2626")+X(105,255,"Engine OFF · key out"))}}},
+{a:5,b:14,t:"1 · Tyre pressure",st:["Find your recommended pressure on the door label or in the manual","Unscrew the valve cap","Press the gauge onto the valve and read it","Add or release air to match YOUR car’s figure","Recheck, then refit the cap"],f:p=>{
+ const c=ez(sg(p,.18,.3)),cap=sg(p,.3,.45)-sg(p,.8,.92),g=p<.5?0:p<.66?sg(p,.5,.6)*2.1:2.1+sg(p,.66,.8)*.3,th=Math.PI*.8+Math.PI*1.4*g/4;
+ let i;
+ if(p<.2)i=PN("Door label",R(25,50,160,150,"#f1f5f9",8,'stroke="#94a3b8"')+X(105,80,"TYRE PRESSURE","#14202b",12)+X(105,118,"Front 2.4 bar","#0f766e",15)+X(105,148,"Rear 2.6 bar","#0f766e",15)+X(105,185,"SAMPLE: use YOUR car’s","#b45309",11)+X(105,240,"or check the owner’s manual",undefined,12));
+ else i=PN("Valve close-up",R(95,85,20,40,"#64748b",3)+R(93+55*cap,66-8*cap,24,18,"#1f2937",3)+(p>.5&&p<.8?L(105,125,105,160,"#475569",6):"")+C(105,200,42,"#f8fafc",'stroke="#334155" stroke-width="4"')+L(105,200,105+34*Math.cos(th),200+34*Math.sin(th),"#dc2626",3)+X(105,258,p<.5?"Cap off, valve exposed":"Reading: "+g.toFixed(1)+" bar (sample)",undefined,12));
+ return{h:[420,c,p<.2?305:390,p<.2?255:334],r:[388,333,18],lb:p<.2?[250,215,"Door label"]:[300,285,"Valve"],i}}},
+{a:14,b:19,t:"2 · Tyre damage & wear",st:["Look across the whole tread for cracks and bulges","Check for nails, cuts or bald patches","Check for uneven wear and tread depth"],f:p=>{const a=p*5;return{h:[420,.9,370+36*Math.cos(a),335+36*Math.sin(a)],lb:[300,285,"Sidewall & tread"],i:PN("Inspect the tyre",C(105,140,70,"none",'stroke="#1f2937" stroke-width="24"')+C(105+70*Math.cos(a*1.3),140+70*Math.sin(a*1.3),8,"#f59e0b")+(p>.4?C(105,70,14,"none",'stroke="#dc2626" stroke-width="3"')+X(105,50,"cut / bulge","#dc2626",11):"")+X(105,235,"Cracks, bulges, uneven wear?",undefined,12)+X(105,255,"→ tyre specialist","#dc2626",12))}}},
+{a:19,b:27,t:"3 · Engine oil",st:["Engine off and cooled, car on level ground","Open the bonnet and find the dipstick (or electronic display)","Pull it out, wipe it, push it fully in, pull again","Read the level between MIN and MAX","If low, top up slowly with the specified oil and recheck"],f:p=>{
+ const o=50*(sg(p,.38,.46)*(1-sg(p,.46,.54))+sg(p,.6,.7)*(1-sg(p,.93,.99))),y=105-o;
+ return{h:[70,0,145,262+Math.sin(p*14)*3],f:-1,car:{bn:ez(sg(p,.15,.3))},r:[150,265,22],lb:[190,205,"Dipstick"],i:PN("Dipstick",R(94,110,22,120,"#cbd5e1",6)+R(103,y,4,130,"#e2e8f0")+R(97,y-12,16,12,"#f59e0b",3)+(o>30?R(102,y+100,6,30,"#a16207")+L(100,y+85,112,y+85,"#14202b",2)+L(100,y+115,112,y+115,"#14202b",2)+X(122,y+89,"MAX","#14202b",10,"start")+X(122,y+119,"MIN","#14202b",10,"start"):"")+(p>.75?X(105,255,p>.9?"Low? Add oil gradually":"Level between MIN–MAX ✓","#0f766e",12):X(105,255,"Wipe → reinsert → read",undefined,12)))}}},
+{a:27,b:33,t:"4 · Coolant",st:["Make sure the engine is completely cool","Find the coolant reservoir","Read the level between MIN and MAX from outside","Top up only with approved coolant, engine cold","Close the cap securely"],f:p=>({h:[70,0,150,255],f:-1,car:{bn:.9},r:[155,258,22],lb:[200,205,"Coolant reservoir"],i:PN("Coolant reservoir",R(70,62,70,140,"#e2e8f0",10,'stroke="#64748b" stroke-width="2"')+R(72,140+2*Math.sin(p*20),66,60,"#22c55e",6)+L(70,100,140,100,"#dc2626",2)+L(70,170,140,170,"#2563eb",2)+X(148,104,"MAX","#14202b",10,"start")+X(148,174,"MIN","#14202b",10,"start")+R(80,48-(p>.55&&p<.8?18:0),50,14,"#f59e0b",3)+(p>.4?R(10,215,190,44,"#dc2626",8)+X(105,233,"NEVER open when hot","#fff",13,"middle",700)+X(105,250,"Wait until fully cold","#fff",11):""))})},
+{a:33,b:38,t:"5 · Washer fluid & wipers",st:["Find the washer cap with the spray symbol and check the level","Top up with washer fluid if low","Lift each wiper and look for cracks or splits","Spray the screen and check it clears cleanly"],f:p=>({h:[70,0,p<.5?150:235,p<.5?258:255],f:-1,car:{bn:.9*(1-sg(p,.45,.55)),ws:p>.7?.5+.5*Math.sin(p*40):0},lb:[200,205,p<.5?"Washer cap":"Wipers"],i:PN("Fluid & wipers",R(80,42,50,76,"#e2e8f0",8,'stroke="#64748b" stroke-width="2"')+R(82,100-35*sg(p,.2,.5),46,18+35*sg(p,.2,.5),"#38bdf8",5)+R(20,138,170,100,"#bcd7ea",8)+L(105,232,105-80*Math.cos(Math.PI*(.0+.9*(p>.7?.5+.5*Math.sin(p*40):0))),232-80*Math.sin(Math.PI*(.9*(p>.7?.5+.5*Math.sin(p*40):0))),"#111",4)+X(105,258,"Blade smooth & unsplit?",undefined,12))})},
+{a:38,b:44,t:"6 · Lights",st:["Switch on headlights, then indicators","Switch on the hazard lights","Press the brake pedal (use a helper or a reflection)","Replace any bulb that stays dark"],f:p=>{const k=["Headlights","Indicators","Hazards","Brake lights"],th=[.15,.3,.55,.8];return{h:[520,0,480,235],car:{lt:p>.08,ind:p>.25&&p<.4,haz:p>.4&&p<.6,br:p>.65},lb:[200,205,"Helper checks all sides"],i:PN("Light checklist",k.map((n,i)=>X(30,70+i*48,(p>th[i]?"✓ ":"☐ ")+n,p>th[i]?"#0f766e":"#14202b",15,"start")).join("")+X(105,255,"Dark bulb? Replace or see a mechanic",undefined,11))}}},
+{a:44,b:49,t:"7 · Battery, belts & mirrors",st:["Look at the battery: no cracks, bulges or white/green crust","Look only. Don’t touch the terminals","Tug each seat belt and check for fraying","Adjust the mirrors for a clear rear view"],f:p=>{const A=p<.5,pu=1+.2*Math.sin(p*30);return{h:A?[70,0,175,262]:[480,0,400,250],f:A?-1:1,car:{bn:A?.9:0},lb:A?[210,205,"Battery"]:[300,205,"Belts & mirrors"],i:A?PN("Battery",R(35,85,140,80,"#334155",8)+R(55,70,22,15,"#dc2626")+R(135,70,22,15,"#0f172a")+C(66,66,9*pu,"#a7f3d0",'opacity=".8"')+X(105,200,"White/green crust = corrosion",undefined,11)+X(105,222,"Cracks or swelling → mechanic","#dc2626",11)+X(105,250,"Look only. Don’t touch terminals",undefined,11)):PN("Belts & mirrors",L(60,60,130+8*Math.sin(p*40),150,"#0f172a",12)+R(120,145,24,14,"#94a3b8",3)+X(105,175,"Tug · no fraying",undefined,12)+R(70,190,70,40,"#bcd7ea",6,'stroke="#334155" stroke-width="3"')+L(105,230,105,245,"#334155",4)+X(105,262,"Mirrors: clear view",undefined,12))}}},
+{a:49,b:55,t:"8 · Fuel, spare, leaks, doors, screen",st:["Read the fuel gauge and estimated range","Check the spare tyre, jack and tools","Look under the parked car for fresh drips","Close the doors, bonnet and boot firmly","Clean the windscreen"],f:p=>{const k=Math.min(4,Math.floor(p*5)),hd=[[440,230],[440,275],[300,362],[400,270],[260,250]][k],q=p*5-k;let b="";
+ if(k==0)b=`<path d="M45 190 A60 60 0 0 1 165 190" fill="none" stroke="#94a3b8" stroke-width="10"/>`+L(105,190,105-52*Math.cos(.4+q*.3),190-52*Math.sin(.4+q*.3),"#dc2626",4)+X(40,212,"E")+X(170,212,"F")+X(105,245,"Range ≈ 420 km (sample)",undefined,12);
+ if(k==1)b=C(80,130,50,"#1f2937")+C(80,130,26,"#cbd5e1")+R(130,100,50,16,"#f59e0b",3)+L(135,150,180,175,"#64748b",6)+X(105,230,"Spare inflated? Jack & tools?",undefined,11);
+ if(k==2)b=R(15,170,180,6,"#64748b")+R(45,145,120,22,"#c0392b",6)+C(100+20*Math.sin(q*3),178+q*0,0,"#000")+C(105,182+q*30,5+q*3,"#78350f")+C(115,180,9,"#78350f",'opacity=".5"')+X(105,235,"Fresh dark drips? Note colour →",undefined,11)+X(105,252,"mechanic",undefined,11);
+ if(k==3)b=["Doors","Bonnet","Boot"].map((n,i)=>X(40,80+i*50,(q>i*.3?"✓ ":"☐ ")+n+" latched","#14202b",15,"start")).join("");
+ if(k==4)b=R(20,80,170,110,"#bcd7ea",8)+L(105,185,105-75*Math.cos(Math.PI*(.5+.5*Math.sin(q*14))),185-75*Math.sin(Math.PI*(.5+.5*Math.sin(q*14))),"#111",4)+X(105,225,"Clean inside & out",undefined,12);
+ return{h:[480,k==2?.8:0,hd[0],hd[1]],lb:[250,205,["Fuel gauge","Boot","Under the car","Doors, bonnet, boot","Windscreen"][k]],r:null,i:PN(["Fuel & range","Spare & tools","Leak check","Secure latches","Windscreen"][k],b)}}},
+{a:55,b:60,t:"9 · Emergency kit",st:["Pack a warning triangle, torch, first-aid kit, water and a phone charger","Carry your documents","Not a guarantee of roadworthiness. See a mechanic if unsure"],f:p=>{const pop=i=>sg(p,i*.1,i*.1+.15);return{h:[500,0,445+Math.sin(p*16)*14,215],car:{lt:1,haz:1},i:PN("Emergency kit",
+ `<g transform="translate(55 90) scale(${pop(0)})"><polygon points="0,-30 28,22 -28,22" fill="none" stroke="#dc2626" stroke-width="8"/></g>`+
+ `<g transform="translate(150 90) scale(${pop(1)})">${R(-6,-28,12,40,"#475569",3)}${C(0,-30,9,"#fde047")}</g>`+
+ `<g transform="translate(55 170) scale(${pop(2)})">${R(-28,-20,56,40,"#fff",5,'stroke="#14202b" stroke-width="2"')}${R(-4,-14,8,28,"#dc2626")}${R(-14,-4,28,8,"#dc2626")}</g>`+
+ `<g transform="translate(150 170) scale(${pop(3)})">${R(-10,-26,20,50,"#38bdf8",6)}</g>`+
+ X(105,230,"Documents · charger · phone",undefined,11)+X(105,252,"Not a roadworthiness guarantee","#dc2626",11))}}}
+];
+const sv=$("sv"),st=[];let play=true,sp=1,last=performance.now(),cc=true;
+function draw(){
+ const k=Math.max(0,SC.findIndex(s=>T>=s.a&&T<s.b)),s=SC[T>=60?SC.length-1:k],p=cl((T-s.a)/(s.b-s.a),0,.9999),o=s.f(p),si=Math.floor(p*s.st.length);
+ let h=`<rect y="${G}" width="800" height="90" fill="var(--gr)"/>`+car(o.car||{});
+ if(o.r)h+=C(o.r[0],o.r[1],o.r[2]+3*Math.sin(T*8),"none",'stroke="#f59e0b" stroke-width="4"');
+ const hh=o.h;h+=hum(hh[0],hh[1],hh[2],hh[3],o.f||1,0)+(o.lb?`<g>${R(o.lb[0]-8,o.lb[1]-18,o.lb[2].length*7.2+16,24,"#0f172a",12)}${X(o.lb[0],o.lb[1]-2,o.lb[2],"#fff",12,"start")}</g>`.replace('x="'+(o.lb[0]-8),'x="'+(o.lb[0]-8)):"")+o.i;
+ sv.innerHTML=h;
+ $("bd").textContent=`${s.t} · step ${si+1}/${s.st.length}`;$("cp").textContent=s.st[si];
+ $("sk").value=T;const f=n=>Math.floor(n/60)+":"+String(Math.floor(n%60)).padStart(2,"0");$("tm").textContent=f(T)+" / 1:00";
+ document.querySelectorAll(".ch").forEach((c,i)=>c.classList.toggle("on",i==k));
+ $("pl").textContent=T>=60?"↻":play?"⏸":"▶";
+}
+function frame(n){const d=(n-last)/1000;last=n;
+ try{if(play){T=Math.min(60,T+d*sp);if(T>=60)play=false}draw();$("er").style.display="none"}catch(e){console.error(e);play=false;$("er").style.display="grid"}
+ requestAnimationFrame(frame)}
+const seek=v=>{T=cl(v,0,60);try{draw()}catch(e){}};
+function chap(d){const k=SC.findIndex(s=>T>=s.a&&T<s.b);let tg=[];SC.forEach(s=>s.st.forEach((_,i)=>tg.push(s.a+(s.b-s.a)*i/s.st.length)));
+ const c=tg.filter(x=>d>0?x>T+.05:x<T-.6);seek(d>0?(c[0]??60):(c.pop()??0))}
+$("pl").onclick=()=>{if(T>=60)T=0;play=!play};
+$("rs").onclick=()=>{T=0;play=true};$("pv").onclick=()=>chap(-1);$("nx").onclick=()=>chap(1);
+$("sk").oninput=e=>seek(+e.target.value);$("sp").onchange=e=>sp=+e.target.value;
+$("cc").onclick=()=>{cc=!cc;$("cp").classList.toggle("off",!cc);$("cc").setAttribute("aria-pressed",cc)};
+$("fs").onclick=()=>{const e=document.querySelector(".player");document.fullscreenElement?document.exitFullscreen():e.requestFullscreen?e.requestFullscreen():0};
+$("rt").onclick=()=>{T=0;play=true;$("er").style.display="none"};
+$("tr").innerHTML=SC.map((s,i)=>`<div class="ch"><h3>${s.t} <span>${s.a}–${s.b}s</span></h3><ol>${s.st.map((x,j)=>`<li data-t="${s.a+(s.b-s.a)*j/s.st.length}">${x}</li>`).join("")}</ol></div>`).join("");
+$("tr").onclick=e=>{const l=e.target.closest("li");if(l){seek(+l.dataset.t+.01);play=true}};
+requestAnimationFrame(frame);
+</script></body></html>
