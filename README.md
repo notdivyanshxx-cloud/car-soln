@@ -34,6 +34,7 @@ Open:
 
 - `http://127.0.0.1:4173/` for Hyundai Studio
 - `http://127.0.0.1:4173/diagnose.html` for MotorIQ
+- `http://127.0.0.1:4173/auth.html` for the private garage dashboard
 
 ## Ollama chat
 
@@ -54,6 +55,14 @@ MotorIQ includes 15 original procedural browser animations under **Before You Hi
 The videos are stored locally in `media/pre-trip-car-care.mp4` and `media/pre-trip-road-ready.mp4`; they are served by the Express app and do not require an external video host.
 
 The section includes tyre pressure and damage, oil, coolant, washer fluid, wipers, exterior lights, battery, seat belts and mirrors, fuel/range, spare equipment, windshield, fluid leaks, closures, and an emergency kit. The **Ask MotorIQ about this step** control sends the selected tutorial context to the existing chat panel.
+
+## Guest access and private car dashboard
+
+All existing showroom, diagnosis, live research, Ollama chat, and pre-trip pages remain public. The **My dashboard** link opens `auth.html`, where a visitor can register or log in with a verified mobile number. In local development, the generated OTP is returned on screen and logged by the server because no SMS provider is configured. For production, configure an SMS/OTP provider and set `NODE_ENV=production`; the local code is then not returned to the browser.
+
+After verification, the dashboard reads only vehicles associated with the authenticated session. A new account starts with the message **“No car is registered with your account yet.”** The user can add a make, model, registration number, year, mileage, next service date, and notes. User data is stored in the ignored `data/user-data.json` file for this local prototype; replace it with a managed database before multi-user production deployment.
+
+When a vehicle is linked, the dashboard includes a responsive Three.js viewer with drag/touch rotation, wheel/pinch zoom, reset view, fullscreen, showroom lighting, loading states, and an owner-scoped vehicle information panel. The backend looks for a verified local asset at `models/<make>-<model>.glb` or `.gltf`. No verified vehicle assets are currently included, so the viewer clearly labels its procedural fallback as an approximate model. Add only licensed, verified assets to `models/`; downloaded model files remain ignored by Git.
 
 ## Safety and privacy
 

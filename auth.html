@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My MotorIQ dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+  <header class="account-header">
+    <a class="logo" href="index.html"><span class="logo-mark">H</span><span>HYUNDAI <small>STUDIO</small></span><b>×</b><strong>motor<span>iq</span></strong></a>
+    <nav><a href="index.html">Explore cars</a><a href="diagnose.html">Fix my car</a><a href="pre-trip-car-care.html">Pre-trip guide</a></nav>
+    <a class="back-link" href="index.html">Back to showroom ↗</a>
+  </header>
+  <main class="account-main">
+    <section class="account-hero">
+      <div><p class="kicker">YOUR PRIVATE GARAGE</p><h1>Keep your car<br><em>ready for the road.</em></h1><p>Browse MotorIQ as a guest, or sign in to keep your own vehicle, service reminders, and maintenance history together.</p></div>
+      <div class="hero-orb">✦<small>Private<br>dashboard</small></div>
+    </section>
+    <section class="account-card" id="authCard">
+      <div class="tabs"><button class="active" data-mode="login" type="button">Log in</button><button data-mode="register" type="button">Create account</button></div>
+      <div class="form-copy"><p class="kicker" id="formKicker">WELCOME BACK</p><h2 id="formTitle">Log in with your mobile</h2><p id="formDescription">We verify ownership with a one-time code. Your vehicle data is only shown inside your signed-in account.</p></div>
+      <form id="authForm">
+        <label id="nameField" hidden>Name<input id="name" autocomplete="name"></label>
+        <label>Mobile number<input id="phone" inputmode="tel" autocomplete="tel" placeholder="10-digit mobile number" required></label>
+        <button class="primary" id="requestOtp" type="submit">Send verification code <span>↗</span></button>
+      </form>
+      <form id="verifyForm" hidden>
+        <label>Verification code<input id="otp" inputmode="numeric" autocomplete="one-time-code" maxlength="6" placeholder="6-digit code" required></label>
+        <button class="primary" type="submit">Verify and continue <span>↗</span></button>
+        <button class="text-button" id="changeNumber" type="button">Use a different number</button>
+      </form>
+      <p class="form-status" id="authStatus" role="status"></p>
+      <p class="guest-note">No account needed for public features. <a href="diagnose.html">Continue as guest</a></p>
+    </section>
+    <section class="dashboard" id="dashboard" hidden>
+      <div class="dashboard-heading"><div><p class="kicker">SIGNED-IN GARAGE</p><h2 id="welcomeTitle">Your dashboard</h2><p id="accountPhone"></p></div><button class="text-button" id="logout" type="button">Log out</button></div>
+      <div class="dashboard-vehicle" id="dashboardVehicle" hidden>
+        <div class="vehicle-selector-row"><div><p class="kicker">SELECTED VEHICLE</p><h3 id="selectedVehicleName">Vehicle</h3><p id="selectedVehicleStatus"></p></div><label class="vehicle-select-label">View vehicle<select id="vehicleSelect"></select></label></div>
+        <div class="vehicle-viewer-layout">
+          <div class="vehicle-viewer" id="vehicleViewer">
+            <div class="viewer-stage" id="viewerStage"><div class="viewer-loading" id="viewerLoading">Preparing showroom model…</div><div class="viewer-error" id="viewerError" hidden></div></div>
+            <div class="viewer-controls"><button id="viewerReset" type="button">↺ Reset view</button><button id="viewerFullscreen" type="button">⛶ Fullscreen</button><span>Drag to rotate · wheel or pinch to zoom</span></div>
+            <p class="viewer-note" id="viewerNote"></p>
+          </div>
+          <div class="vehicle-detail-panel" id="vehicleDetails"></div>
+        </div>
+      </div>
+      <div class="vehicle-list" id="vehicleList"></div>
+      <div class="add-vehicle" id="addVehicle">
+        <div><p class="kicker">YOUR VEHICLE</p><h3 id="vehicleFormTitle">Register or link a car</h3><p>No car is registered with your account yet. Add one here to create your private dashboard.</p></div>
+        <form id="vehicleForm">
+          <div class="field-grid"><label>Make<input name="make" value="Hyundai" required></label><label>Model<input name="model" placeholder="Venue, Creta, i20..." required></label><label>Variant<input name="variant" placeholder="SX, Sportz, etc."></label><label>Year<input name="year" inputmode="numeric" maxlength="4"></label><label>Registration number<input name="registrationNumber" placeholder="DL 01 AB 1234" required></label><label>Fuel type<select name="fuelType"><option value="">Select</option><option>Petrol</option><option>Diesel</option><option>CNG</option><option>Electric</option><option>Hybrid</option></select></label><label>Transmission<select name="transmission"><option value="">Select</option><option>Manual</option><option>Automatic</option><option>AMT</option><option>CVT</option><option>DCT</option></select></label><label>Current mileage<input name="mileage" placeholder="e.g. 24,500 km"></label><label>Next service date<input name="nextServiceDate" type="date"></label></div>
+          <label>Notes<textarea name="notes" rows="3" placeholder="Warranty, tyre change, or other useful notes"></textarea></label>
+          <button class="primary" type="submit">Save my vehicle <span>↗</span></button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+  <script src="auth.js?v=20261024-0521"></script>
+  <script type="module" src="garage-viewer.js?v=20261024-0521"></script>
+</body>
+</html>
